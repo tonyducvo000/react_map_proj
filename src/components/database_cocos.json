@@ -1,0 +1,224 @@
+    {
+        "robots": {
+            "D01": {
+                "diagnostics": {
+                    "battery": 0.96,
+                    "velocity": 3.45,
+                    "cameraDataWorking": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true
+                    ],
+                    "cpuTemp": 30.12,
+                    "gpuTemp": 32.3,
+                    "memoryUsage": 8.7,
+                    "diskUsage": 123.3,
+                    "gpuUsage": 0.9,
+                    "cpuUsage": 0.55,
+                    "cellStrength": 0.88,
+                    "carrierAvail": {
+                        "Verizon": true,
+                        "AT&T": true,
+                        "T-MOBILE": false
+                    }
+                },
+                "state": 0,
+                "assignedOrderId": "",
+                "location": {
+                    "latitude": 34.004142,
+                    "longitude": -118.478364,
+                    "heading": 223
+                }
+            },
+            "D02": {
+                "diagnostics": {
+                    "battery": 0.5,
+                    "velocity": 0.0,
+                    "cameraDataWorking": [
+                        false,
+                        true,
+                        true,
+                        true,
+                        true,
+                        false,
+                        true,
+                        true
+                    ],
+                    "cpuTemp": 100.3,
+                    "gpuTemp": 32.3,
+                    "memoryUsage": 8.7,
+                    "diskUsage": 123.3,
+                    "gpuUsage": 0.9,
+                    "cpuUsage": 0.30,
+                    "cellStrength": 0.88,
+                    "carrierAvail": {
+                        "Verizon": true,
+                        "AT&T": true,
+                        "T-MOBILE": false
+                    }
+                },
+                "state": 1,
+                "assignedOrderId": "001",
+                "location": {
+                    "latitude": 34.013280,
+                    "longitude": -118.481049,
+                    "heading": 188
+                }
+            },
+            "D03": {
+                "diagnostics": {
+                    "battery": 0.9,
+                    "velocity": 2,
+                    "cameraDataWorking": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true
+                    ],
+                    "cpuTemp": 30.12,
+                    "gpuTemp": 32.3,
+                    "memoryUsage": 8.7,
+                    "diskUsage": 123.3,
+                    "gpuUsage": 0.9,
+                    "cpuUsage": 0.55,
+                    "cellStrength": 0.0,
+                    "carrierAvail": {
+                        "Verizon": false,
+                        "AT&T": false,
+                        "T-MOBILE": false
+                    }
+                },
+                "state": 5,
+                "assignedOrderId": "002",
+                "location": {
+                    "latitude": 33.998757,
+                    "longitude": -118.472852,
+                    "heading": 23.1
+                }
+            },
+            "D04": {
+                "diagnostics": {
+                    "battery": 0.05,
+                    "velocity": 5.3,
+                    "cameraDataWorking": [
+                        true,
+                        true,
+                        true,
+                        false,
+                        true,
+                        true,
+                        true,
+                        true
+                    ],
+                    "cpuTemp": 30.12,
+                    "gpuTemp": 32.3,
+                    "memoryUsage": 8.7,
+                    "diskUsage": 123.3,
+                    "gpuUsage": 0.9,
+                    "cpuUsage": 0.55,
+                    "cellStrength": 0.23,
+                    "carrierAvail": {
+                        "Verizon": true,
+                        "AT&T": true,
+                        "T-MOBILE": false
+                    }
+                },
+                "state": 2,
+                "assignedOrderId": "000",
+                "location": {
+                    "latitude": 33.732561,
+                    "longitude": -118.292611,
+                    "heading": 91
+                }
+            },
+            "D05": {
+                "diagnostics": {
+                    "battery": 0.96,
+                    "velocity": 3.45,
+                    "cameraDataWorking": [
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true
+                    ],
+                    "cpuTemp": 30.12,
+                    "gpuTemp": 32.3,
+                    "memoryUsage": 8.7,
+                    "diskUsage": 123.3,
+                    "gpuUsage": 1.0,
+                    "cpuUsage": 0.55,
+                    "cellStrength": 0.33,
+                    "carrierAvail": {
+                        "Verizon": true,
+                        "AT&T": true,
+                        "T-MOBILE": false
+                    }
+                },
+                "state": 8,
+                "assignedOrderId": "",
+                "location": {
+                    "latitude": 33.732378,
+                    "longitude": -118.280054,
+                    "heading": 199
+                }
+            }
+        },
+
+        "orders": {
+            "000": {
+                "minutesSinceOrderPlaced": 200,
+                "location": {
+                    "latitude": 33.724702,
+                    "longitude": -118.290853
+                },
+                "customerPhone": "3105551234",
+                "totalPrice": 51.39,
+                "subtotalPrice": 49.95,
+                "items": [
+                    "apple",
+                    "banana",
+                    "wine"
+                ]
+            },
+            "001": {
+                "minutesSinceOrderPlaced": 30,
+                "location": {
+                    "latitude": 34.002686,
+                    "longitude": -118.471673
+                },
+                "customerPhone": "3105551111",
+                "totalPrice": 1.39,
+                "subtotalPrice": 0.99,
+                "items": [
+                    "carrot"
+                ]
+            },
+            "002": {
+                "minutesSinceOrderPlaced": 10.2,
+                "location": {
+                    "latitude": 34.000658,
+                    "longitude": -118.473980
+                },
+                "customerPhone": "3105557777",
+                "totalPrice": 100.39,
+                "subtotalPrice": 99.95,
+                "items": [
+                    "vodka",
+                    "cereal"
+                ]
+            }
+        }
+    }
