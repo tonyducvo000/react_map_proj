@@ -166,71 +166,18 @@ class MapContainer extends Component {
         });
 
 
-
     handleChangeRobot = (event) => {
-
-        this.setState({ currentRobotSelect: event.target.value });
-
-        switch (event.target.value) {
-            case "D01":
-                this.setState({ stateSelected: this.state.robotState.D01 })
-                break;
-            case "D02":
-                this.setState({ stateSelected: this.state.robotState.D02 })
-                break;
-            case "D03":
-                this.setState({ stateSelected: this.state.robotState.D03 })
-                break;
-            case "D04":
-                this.setState({ stateSelected: this.state.robotState.D04 })
-                break;
-            case "D05":
-                this.setState({ stateSelected: this.state.robotState.D05 })
-                break;
-            default:
-                break;
-
-        }
+        const { robotState } = this.state;
+        this.setState({ currentRobotSelect: event.target.value, stateSelected: robotState[event.target.value] });
     }
 
     handleStateChange = (event) => {
 
-        switch (this.state.currentRobotSelect) {
-
-            case "D01":
-                this.setState(prevState => ({
-                    robotState: { ...prevState.robotState, D01: event.target.value },
-                    stateSelected: event.target.value
-                }))
-                break;
-            case "D02":
-                this.setState(prevState => ({
-                    robotState: { ...prevState.robotState, D02: event.target.value },
-                    stateSelected: event.target.value
-                }))
-                break;
-            case "D03":
-                this.setState(prevState => ({
-                    robotState: { ...prevState.robotState, D03: event.target.value },
-                    stateSelected: event.target.value
-                }))
-                break;
-            case "D04":
-                this.setState(prevState => ({
-                    robotState: { ...prevState.robotState, D04: event.target.value },
-                    stateSelected: event.target.value
-                }))
-                break;
-            case "D05":
-                this.setState(prevState => ({
-                    robotState: { ...prevState.robotState, D05: event.target.value },
-                    stateSelected: event.target.value
-                }))
-                break;
-            default:
-                break;
-
-        }
+        const { currentRobotSelect } = this.state;
+        //clone the object then update the key's value of robotState
+        const robotStateClone = { ...this.state.robotState };
+        robotStateClone[currentRobotSelect] = event.target.value;
+        this.setState({ robotState: robotStateClone, stateSelected: event.target.value });
 
     }
 
