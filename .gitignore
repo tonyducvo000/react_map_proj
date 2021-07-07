@@ -12,6 +12,7 @@
 /build
 
 # misc
+
 .DS_Store
 .env.local
 .env.development.local
@@ -19,6 +20,7 @@
 .env.production.local
 .pdf
 .env
+*.txt
 
 
 npm-debug.log*
