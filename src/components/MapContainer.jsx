@@ -186,13 +186,19 @@ class MapContainer extends Component {
     };
 
     render() {
+        const { google } = this.props;
+
+        const { robotID, velocity, batteryLife, cameraNotWorkingArr,
+            robotStateNumber, orderID, minutesSinceOrdered,
+            orderedItems, totalPrice } = this.state;
+
         return (
             <React.Fragment>
                 <div className="mapContainer">
 
                     <Map
                         onClick={this.onClose}
-                        google={this.props.google}
+                        google={google}
                         zoom={10}
                         style={mapStyles}
                         initialCenter={
@@ -224,29 +230,29 @@ class MapContainer extends Component {
 
                             <h3>Robot Status:</h3>
 
-                            <p><b>RobotID:</b>  {this.state.robotID}</p>
+                            <p><b>RobotID:</b>  {robotID}</p>
 
-                            <p><b>Velocity:</b> {this.state.velocity} </p>
+                            <p><b>Velocity:</b> {velocity} </p>
 
-                            <p><b>Battery Remaining: </b>{this.state.batteryLife}</p>
+                            <p><b>Battery Remaining: </b>{batteryLife}</p>
 
-                            <p><b>Camera data: </b>{this.state.cameraNotWorkingArr}</p>
+                            <p><b>Camera data: </b>{cameraNotWorkingArr}</p>
 
 
-                            {<p><b>Current state: </b>{this.state.robotStateNumber} - {this.state.robotStateRendered}</p>}
+                            {<p><b>Current state: </b>{robotStateNumber} - {this.state.robotStateRendered}</p>}
 
 
                             <p><b>-------------------------------</b></p>
 
                             <h3>Order Information:</h3>
 
-                            <p><b>OrderID: </b>{this.state.orderID}</p>
+                            <p><b>OrderID: </b>{orderID}</p>
 
-                            <p><b>Minutes since order: </b>{this.state.minutesSinceOrdered}</p>
+                            <p><b>Minutes since order: </b>{minutesSinceOrdered}</p>
 
-                            <p><b>Items ordered: </b>{this.state.orderedItems}</p>
+                            <p><b>Items ordered: </b>{orderedItems}</p>
 
-                            <p><b>Total price: </b>{this.state.totalPrice}</p>
+                            <p><b>Total price: </b>{totalPrice}</p>
 
 
                         </InfoWindow>
