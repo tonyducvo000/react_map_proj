@@ -4,6 +4,7 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 //import DataDisplay from './DataDisplay'
 import database from './database_cocos.json';
 import './MapContainer.scss';
+import convertTime from './helper/convertTime'
 const R = require('ramda');
 
 
@@ -50,14 +51,6 @@ class MapContainer extends Component {
 
     componentDidMount() {
 
-        this.setState({
-            // D01State: database.robots.D01.state,
-            // D02State: database.robots.D02.state,
-            // D03State: database.robots.D03.state,
-            // D04State: database.robots.D04.state,
-            // D05State: database.robots.D05.state,
-        })
-
     }
 
 
@@ -95,7 +88,7 @@ class MapContainer extends Component {
             orderID = database.robots[robotID].assignedOrderId;
             orderedItems = database.orders[orderID].items.toString().replace(",", ", ");
             totalPrice = "$" + database.orders[orderID].totalPrice;
-            minutesSinceOrdered = this.convertTime(database.orders[orderID].minutesSinceOrderPlaced)
+            minutesSinceOrdered = convertTime(database.orders[orderID].minutesSinceOrderPlaced)
 
         } else {
             orderID = "Available";
@@ -118,19 +111,19 @@ class MapContainer extends Component {
 
     }
 
-    convertTime(minutesSinceOrderPlaced) {
-        var hours = Math.floor((minutesSinceOrderPlaced) / 60);
-        var seconds = Math.ceil((minutesSinceOrderPlaced * 360) % 60);
+    // convertTime(minutesSinceOrderPlaced) {
+    //     var hours = Math.floor((minutesSinceOrderPlaced) / 60);
+    //     var seconds = Math.ceil((minutesSinceOrderPlaced * 360) % 60);
 
-        if (hours > 0) {
-            var minutes = minutesSinceOrderPlaced % 60;
-            return hours + " hour(s) and " + minutes + " minutes ago and " + seconds + " ago";
-        } else {
-            var minutes = (minutesSinceOrderPlaced - (((minutesSinceOrderPlaced * 60) % 60) / 60));
-            return minutes + " minutes and " + seconds + " seconds ago";
-        }
+    //     if (hours > 0) {
+    //         var minutes = minutesSinceOrderPlaced % 60;
+    //         return hours + " hour(s) and " + minutes + " minutes ago and " + seconds + " ago";
+    //     } else {
+    //         var minutes = (minutesSinceOrderPlaced - (((minutesSinceOrderPlaced * 60) % 60) / 60));
+    //         return minutes + " minutes and " + seconds + " seconds ago";
+    //     }
 
-    }
+    // }
 
     getCameraData = (cameraData) => {
         var indexes = [], i = -1;
