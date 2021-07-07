@@ -23,6 +23,7 @@ class MapContainer extends Component {
         super(props);
 
         this.state = {
+            currentRobotSelect: "D01",
             showInfoWindow: false,
             robotStateStore: {
                 0: "Available.",
@@ -168,24 +169,23 @@ class MapContainer extends Component {
 
     handleChangeRobot = (event) => {
 
-
         this.setState({ currentRobotSelect: event.target.value });
 
         switch (event.target.value) {
             case "D01":
-                this.setState({ stateSelected: this.state.D01State })
+                this.setState({ stateSelected: this.state.robotState.D01 })
                 break;
             case "D02":
-                this.setState({ stateSelected: this.state.D02State })
+                this.setState({ stateSelected: this.state.robotState.D02 })
                 break;
             case "D03":
-                this.setState({ stateSelected: this.state.D03State })
+                this.setState({ stateSelected: this.state.robotState.D03 })
                 break;
             case "D04":
-                this.setState({ stateSelected: this.state.D04State })
+                this.setState({ stateSelected: this.state.robotState.D04 })
                 break;
             case "D05":
-                this.setState({ stateSelected: this.state.D05State })
+                this.setState({ stateSelected: this.state.robotState.D05 })
                 break;
             default:
                 break;
