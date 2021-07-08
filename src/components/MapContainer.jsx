@@ -7,6 +7,7 @@ import './MapContainer.scss';
 import convertTime from './helper/convertTime'
 import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
+import GOOGLE_MAP_API_KEY from '../key/my_key'
 
 const R = require('ramda');
 
@@ -291,5 +292,5 @@ class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_SECRET_KEY
+    apiKey: GOOGLE_MAP_API_KEY
 })(MapContainer);
