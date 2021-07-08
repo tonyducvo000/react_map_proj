@@ -5,6 +5,9 @@ import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import database from './database_cocos.json';
 import './MapContainer.scss';
 import convertTime from './helper/convertTime'
+import RobotDataDisplay from './robotDataDisplay';
+import ProductInfoDisplay from './productInfoDisplay';
+
 const R = require('ramda');
 
 
@@ -111,20 +114,6 @@ class MapContainer extends Component {
 
     }
 
-    // convertTime(minutesSinceOrderPlaced) {
-    //     var hours = Math.floor((minutesSinceOrderPlaced) / 60);
-    //     var seconds = Math.ceil((minutesSinceOrderPlaced * 360) % 60);
-
-    //     if (hours > 0) {
-    //         var minutes = minutesSinceOrderPlaced % 60;
-    //         return hours + " hour(s) and " + minutes + " minutes ago and " + seconds + " ago";
-    //     } else {
-    //         var minutes = (minutesSinceOrderPlaced - (((minutesSinceOrderPlaced * 60) % 60) / 60));
-    //         return minutes + " minutes and " + seconds + " seconds ago";
-    //     }
-
-    // }
-
     getCameraData = (cameraData) => {
         var indexes = [], i = -1;
         while ((i = cameraData.indexOf(false, i + 1)) !== -1) {
@@ -189,7 +178,7 @@ class MapContainer extends Component {
         const { google } = this.props;
 
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
-            robotStateNumber, orderID, minutesSinceOrdered,
+            robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
             orderedItems, totalPrice } = this.state;
 
         return (
@@ -227,33 +216,23 @@ class MapContainer extends Component {
                             visible={this.state.showInfoWindow}
                             onClose={this.onClose}
                         >
+                            <RobotDataDisplay
+                                robotID={robotID}
+                                velocity={velocity}
+                                batteryLife={batteryLife}
+                                cameraNotWorkingArr={cameraNotWorkingArr}
+                                robotStateNumber={robotStateNumber}
+                                robotStateRendered={robotStateRendered}
+                            >
+                            </RobotDataDisplay>
 
-                            <h3>Robot Status:</h3>
-
-                            <p><b>RobotID:</b>  {robotID}</p>
-
-                            <p><b>Velocity:</b> {velocity} </p>
-
-                            <p><b>Battery Remaining: </b>{batteryLife}</p>
-
-                            <p><b>Camera data: </b>{cameraNotWorkingArr}</p>
-
-
-                            {<p><b>Current state: </b>{robotStateNumber} - {this.state.robotStateRendered}</p>}
-
-
-                            <p><b>-------------------------------</b></p>
-
-                            <h3>Order Information:</h3>
-
-                            <p><b>OrderID: </b>{orderID}</p>
-
-                            <p><b>Minutes since order: </b>{minutesSinceOrdered}</p>
-
-                            <p><b>Items ordered: </b>{orderedItems}</p>
-
-                            <p><b>Total price: </b>{totalPrice}</p>
-
+                            <ProductInfoDisplay
+                                orderID={orderID}
+                                minutesSinceOrdered={minutesSinceOrdered}
+                                orderedItems={orderedItems}
+                                totalPrice={totalPrice}
+                            >
+                            </ProductInfoDisplay>
 
                         </InfoWindow>
                     </Map>
