@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
-//import MarkerHandler from './components/marker_handler';
-//import DataDisplay from './DataDisplay'
-import database from './database_cocos.json';
-import './MapContainer.scss';
-import convertTime from './helper/convertTime'
 import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
+import convertTime from './helper/convertTime'
+
+import database from './database_cocos.json';
+
 import GOOGLE_MAP_API_KEY from '../key/my_key'
+import './MapContainer.scss';
 
 const R = require('ramda');
 
