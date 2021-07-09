@@ -181,7 +181,7 @@ class MapContainer extends Component {
 
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
             robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
-            orderedItems, totalPrice } = this.state;
+            orderedItems, totalPrice, robotState, robotStateStore } = this.state;
 
         return (
             <React.Fragment>
@@ -240,27 +240,12 @@ class MapContainer extends Component {
                     </Map>
                 </div>
 
-
-
-
-
                 <StateDisplay
-                    robotState={this.state.robotState}
-                    robotStateStore={this.state.robotStateStore}
+                    robotState={robotState}
+                    robotStateStore={robotStateStore}
                 >
 
                 </StateDisplay>
-
-
-
-                {/* <div className="stateDisplay">
-
-                    <p><b>Robot D01</b> current state: {this.state.robotState.D01} - {this.state.robotStateStore[this.state.robotState.D01]}</p>
-                    <p><b>Robot D02</b> current state: {this.state.robotState.D02} - {this.state.robotStateStore[this.state.robotState.D02]}</p>
-                    <p><b>Robot D03</b> current state: {this.state.robotState.D03} - {this.state.robotStateStore[this.state.robotState.D03]}</p>
-                    <p><b>Robot D04</b> current state: {this.state.robotState.D04} - {this.state.robotStateStore[this.state.robotState.D04]}</p>
-                    <p><b>Robot D05</b> current state: {this.state.robotState.D05} - {this.state.robotStateStore[this.state.robotState.D05]}</p>
-                </div> */}
 
                 <div className="controlPanel">
 
