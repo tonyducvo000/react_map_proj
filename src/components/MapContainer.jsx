@@ -4,6 +4,8 @@ import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
 import StateDisplay from './stateDisplay'
 import convertTime from './helper/convertTime'
+import ControlPanel from './controlPanel';
+
 
 import database from './database_cocos.json';
 
@@ -181,7 +183,8 @@ class MapContainer extends Component {
 
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
             robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
-            orderedItems, totalPrice, robotState, robotStateStore } = this.state;
+            orderedItems, totalPrice, robotState, robotStateStore, stateSelected,
+            handleStateChange, currentRobotSelect } = this.state;
 
         return (
             <React.Fragment>
@@ -247,42 +250,16 @@ class MapContainer extends Component {
 
                 </StateDisplay>
 
-                <div className="controlPanel">
 
-                    <form name="robotChoice">
-                        <label>
-                            <b>Robot:</b>
-                            <select value={this.state.currentRobotSelect} onChange={this.handleChangeRobot}
-                                name="robotChoiceDropdown" id="robotChoiceDropDown">
-                                <option value="D01">D01</option>
-                                <option value="D02">D02</option>
-                                <option value="D03">D03</option>
-                                <option value="D04">D04</option>
-                                <option value="D05">D05</option>
-                            </select>
-                        </label>
 
-                        <label>
-                            <b>State:</b>
-                            <select value={this.state.stateSelected} onChange={this.handleStateChange}
-                                name="stateSelectDropDown" id="stateSelectDropDown">
-                                <option value="0">0:  Available</option>
-                                <option value="1">1:  On way to store</option>
-                                <option value="2">2:  At store</option>
-                                <option value="3">3:  On way to customer</option>
-                                <option value="4">4:  At customer</option>
-                                <option value="5">5:  On way back to store</option>
-                                <option value="6">6:  Needs attention</option>
-                                <option value="7">7:  Needs repair</option>
-                                <option value="8">8:  SOS!</option>
+                <ControlPanel
+                    currentRobotSelect={currentRobotSelect}
+                    handleChangeRobot={this.handleChangeRobot}
+                    handleStateChange={handleStateChange}
+                    stateSelected={stateSelected}
+                >
 
-                            </select>
-                        </label>
-
-                    </form>
-
-                </div>
-
+                </ControlPanel>
 
             </React.Fragment >
 
