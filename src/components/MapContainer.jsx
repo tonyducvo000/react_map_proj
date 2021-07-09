@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
+import StateDisplay from './stateDisplay'
 import convertTime from './helper/convertTime'
 
 import database from './database_cocos.json';
@@ -239,14 +240,27 @@ class MapContainer extends Component {
                     </Map>
                 </div>
 
-                <div className="stateDisplay">
+
+
+
+
+                <StateDisplay
+                    robotState={this.state.robotState}
+                    robotStateStore={this.state.robotStateStore}
+                >
+
+                </StateDisplay>
+
+
+
+                {/* <div className="stateDisplay">
 
                     <p><b>Robot D01</b> current state: {this.state.robotState.D01} - {this.state.robotStateStore[this.state.robotState.D01]}</p>
                     <p><b>Robot D02</b> current state: {this.state.robotState.D02} - {this.state.robotStateStore[this.state.robotState.D02]}</p>
                     <p><b>Robot D03</b> current state: {this.state.robotState.D03} - {this.state.robotStateStore[this.state.robotState.D03]}</p>
                     <p><b>Robot D04</b> current state: {this.state.robotState.D04} - {this.state.robotStateStore[this.state.robotState.D04]}</p>
                     <p><b>Robot D05</b> current state: {this.state.robotState.D05} - {this.state.robotStateStore[this.state.robotState.D05]}</p>
-                </div>
+                </div> */}
 
                 <div className="controlPanel">
 
