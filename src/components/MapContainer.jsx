@@ -226,24 +226,25 @@ class MapContainer extends Component {
                             visible={this.state.showInfoWindow}
                             onClose={this.onClose}
                         >
-                            <RobotDataDisplay
-                                robotID={robotID}
-                                velocity={velocity}
-                                batteryLife={batteryLife}
-                                cameraNotWorkingArr={cameraNotWorkingArr}
-                                robotStateNumber={robotStateNumber}
-                                robotStateRendered={robotStateRendered}
-                            >
-                            </RobotDataDisplay>
+                            <div>
+                                <RobotDataDisplay
+                                    robotID={robotID}
+                                    velocity={velocity}
+                                    batteryLife={batteryLife}
+                                    cameraNotWorkingArr={cameraNotWorkingArr}
+                                    robotStateNumber={robotStateNumber}
+                                    robotStateRendered={robotStateRendered}
+                                >
+                                </RobotDataDisplay>
 
-                            <ProductInfoDisplay
-                                orderID={orderID}
-                                minutesSinceOrdered={minutesSinceOrdered}
-                                orderedItems={orderedItems}
-                                totalPrice={totalPrice}
-                            >
-                            </ProductInfoDisplay>
-
+                                <ProductInfoDisplay
+                                    orderID={orderID}
+                                    minutesSinceOrdered={minutesSinceOrdered}
+                                    orderedItems={orderedItems}
+                                    totalPrice={totalPrice}
+                                >
+                                </ProductInfoDisplay>
+                            </div>
                         </InfoWindow>
                     </Map>
                 </div>
