@@ -4,8 +4,8 @@ import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
 import StateDisplay from './stateDisplay'
 import convertTime from './helper/convertTime'
-import ControlPanel from './controlPanel';
-
+import ControlPanel from './controlPanel'
+//import Markers from './markers'
 
 import database from './database_cocos.json';
 
@@ -31,6 +31,7 @@ class MapContainer extends Component {
         super(props);
 
         this.state = {
+            apiKey: GOOGLE_MAP_API_KEY,
             currentRobotSelect: "D01",
             showInfoWindow: false,
             robotStateStore: {
@@ -183,8 +184,7 @@ class MapContainer extends Component {
 
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
             robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
-            orderedItems, totalPrice, robotState, robotStateStore, stateSelected,
-            handleStateChange, currentRobotSelect } = this.state;
+            orderedItems, totalPrice, robotState, robotStateStore, currentRobotSelect, stateSelected } = this.state;
 
         return (
             <React.Fragment>
@@ -204,6 +204,14 @@ class MapContainer extends Component {
                             }
                         }
                     >
+
+                        {/* 
+                        <Markers
+                            base_keys_robots={base_keys_robots}
+                            base_values_robots={base_values_robots}
+                        >
+                        </Markers> */}
+
                         {
                             R.zip(base_keys_robots, base_values_robots).map((data) => {
 
@@ -247,12 +255,13 @@ class MapContainer extends Component {
                     robotState={robotState}
                     robotStateStore={robotStateStore}
                 >
+
                 </StateDisplay>
 
                 <ControlPanel
                     currentRobotSelect={currentRobotSelect}
                     handleChangeRobot={this.handleChangeRobot}
-                    handleStateChange={handleStateChange}
+                    handleStateChange={this.handleStateChange}
                     stateSelected={stateSelected}
                 >
                 </ControlPanel>
@@ -263,6 +272,6 @@ class MapContainer extends Component {
     }
 }
 
-export default GoogleApiWrapper({
-    apiKey: GOOGLE_MAP_API_KEY
-})(MapContainer);
+export default GoogleApiWrapper(
+    { apiKey: GOOGLE_MAP_API_KEY }
+)(MapContainer);
