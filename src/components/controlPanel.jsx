@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const ControlPanel = (props) => {
-    const { currentRobotSelect, handleChangeRobot, handleStateChange, stateSelected } = props;
+    const { currentRobotSelect, handleChangeRobot, handleStateChange, stateSelected, base_keys_robots } = props;
 
     return (
 
@@ -11,15 +11,19 @@ const ControlPanel = (props) => {
 
             <form name="robotChoice">
                 <label>
+
                     <b>Robot:</b>
                     <select value={currentRobotSelect} onChange={handleChangeRobot}
                         name="robotChoiceDropdown" id="robotChoiceDropDown">
-                        <option value="D01">D01</option>
-                        <option value="D02">D02</option>
-                        <option value="D03">D03</option>
-                        <option value="D04">D04</option>
-                        <option value="D05">D05</option>
+
+                        {base_keys_robots.map((keys) => {
+                            return (
+                                <option value={keys}>{keys}</option>
+                            );
+                        })}
+
                     </select>
+
                 </label>
 
                 <label>
