@@ -8,17 +8,13 @@ import ControlPanel from './controlPanel'
 //import Markers from './markers'
 
 import database from './database_cocos.json';
-
 import GOOGLE_MAP_API_KEY from '../key/my_key'
 import './MapContainer.scss';
-
 const R = require('ramda');
-
 
 //gets list of robots
 const base_keys_robots = Object.keys(database.robots);
 const base_values_robots = Object.values(database.robots);
-
 
 const mapStyles = {
     width: '58%',
@@ -27,6 +23,18 @@ const mapStyles = {
 
 class MapContainer extends Component {
 
+    robotStateStore = {
+        0: "Available.",
+        1: "On way to store.",
+        2: "At store.",
+        3: "On way to customer.",
+        4: "At customer.",
+        5: "On way back to store.",
+        6: "Needs attention!",
+        7: "Needs repair!",
+        8: "SOS!",
+    }
+
     constructor(props) {
         super(props);
 
@@ -34,17 +42,6 @@ class MapContainer extends Component {
             apiKey: GOOGLE_MAP_API_KEY,
             currentRobotSelect: "D01",
             showInfoWindow: false,
-            robotStateStore: {
-                0: "Available.",
-                1: "On way to store.",
-                2: "At store.",
-                3: "On way to customer.",
-                4: "At customer.",
-                5: "On way back to store.",
-                6: "Needs attention!",
-                7: "Needs repair!",
-                8: "SOS!",
-            },
 
             robotState: {
                 D01: database.robots.D01.state,
@@ -89,7 +86,7 @@ class MapContainer extends Component {
 
 
         robotStateNumber = this.state.robotState[robotID];
-        robotStateRendered = this.state.robotStateStore[robotStateNumber];
+        robotStateRendered = this.robotStateStore[robotStateNumber];
 
 
         if (database.robots[robotID].assignedOrderId !== "") {
@@ -184,7 +181,7 @@ class MapContainer extends Component {
 
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
             robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
-            orderedItems, totalPrice, robotState, robotStateStore, currentRobotSelect, stateSelected } = this.state;
+            orderedItems, totalPrice, robotState, currentRobotSelect, stateSelected } = this.state;
 
         return (
             <React.Fragment>
@@ -253,7 +250,7 @@ class MapContainer extends Component {
 
                 <StateDisplay
                     robotState={robotState}
-                    robotStateStore={robotStateStore}
+                    robotStateStore={this.robotStateStore}
                     base_keys_robots={base_keys_robots}
                 >
 
