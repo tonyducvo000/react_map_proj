@@ -39,7 +39,6 @@ class MapContainer extends Component {
         super(props);
 
         this.state = {
-            apiKey: GOOGLE_MAP_API_KEY,
             currentRobotSelect: "D01",
             showInfoWindow: false,
 

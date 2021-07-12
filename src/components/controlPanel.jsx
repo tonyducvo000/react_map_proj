@@ -19,7 +19,7 @@ const ControlPanel = (props) => {
 
                         {base_keys_robots.map((keys) => {
                             return (
-                                <option value={keys}>{keys}</option>
+                                <option key={keys} value={keys}>{keys}</option>
                             );
                         })}
 
@@ -35,7 +35,7 @@ const ControlPanel = (props) => {
                         {
                             Object.keys(robotStateStore).map((robotKeys) => {
                                 return (
-                                    <option value={robotKeys}>{robotKeys}: {robotStateStore[robotKeys]} </option>
+                                    <option key={robotKeys} value={robotKeys}>{robotKeys}: {robotStateStore[robotKeys]} </option>
                                 );
                             })
                         }
