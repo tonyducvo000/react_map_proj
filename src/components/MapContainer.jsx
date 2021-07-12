@@ -205,8 +205,8 @@ class MapContainer extends Component {
                         }
                     >
 
-                        {/* 
-                        <Markers
+
+                        {/* <Markers
                             base_keys_robots={base_keys_robots}
                             base_values_robots={base_values_robots}
                         >
@@ -254,6 +254,7 @@ class MapContainer extends Component {
                 <StateDisplay
                     robotState={robotState}
                     robotStateStore={robotStateStore}
+                    base_keys_robots={base_keys_robots}
                 >
 
                 </StateDisplay>
