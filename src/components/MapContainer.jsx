@@ -77,6 +77,7 @@ class MapContainer extends Component {
             return availableCarrierObj[key];
         });
 
+        //
         if (availableCarrierArr.length === 0) {
             availableCarrier = "No carrier is available!";
         } else {
@@ -112,6 +113,11 @@ class MapContainer extends Component {
         this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity,
             cameraNotWorkingArr, cellStrength, availableCarrier, robotStateNumber,
             robotStateRendered, orderID, orderedItems, minutesSinceOrdered, totalPrice);
+
+    }
+
+    getCarrierData = () => {
+
 
     }
 
@@ -180,7 +186,8 @@ class MapContainer extends Component {
 
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
             robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
-            orderedItems, totalPrice, robotState, currentRobotSelect, stateSelected } = this.state;
+            orderedItems, totalPrice, robotState, currentRobotSelect, stateSelected,
+            cellStrength, availableCarrier } = this.state;
 
         return (
             <React.Fragment>
@@ -232,6 +239,8 @@ class MapContainer extends Component {
                                     cameraNotWorkingArr={cameraNotWorkingArr}
                                     robotStateNumber={robotStateNumber}
                                     robotStateRendered={robotStateRendered}
+                                    cellStrength={cellStrength}
+                                    availableCarrier={availableCarrier}
                                 >
                                 </RobotDataDisplay>
 
