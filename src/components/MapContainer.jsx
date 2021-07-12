@@ -262,6 +262,7 @@ class MapContainer extends Component {
                     handleStateChange={this.handleStateChange}
                     stateSelected={stateSelected}
                     base_keys_robots={base_keys_robots}
+                    robotStateStore={this.robotStateStore}
 
                 >
                 </ControlPanel>
