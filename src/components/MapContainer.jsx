@@ -77,8 +77,10 @@ class MapContainer extends Component {
     }
 
     getGeneralData = (batteryLife, velocity, robotID) => {
-        batteryLife = (database.robots[robotID].diagnostics.battery * 100) + "% remaining";
-        velocity = database.robots[robotID].diagnostics.velocity;
+        const { battery, velocity: robotVelocity } = database.robots[robotID].diagnostics;
+
+        batteryLife = (battery * 100) + "% remaining";
+        velocity = robotVelocity + " miles per hour";
         this.setState({ batteryLife, velocity, robotID })
     }
 
@@ -141,7 +143,6 @@ class MapContainer extends Component {
         activeRobot: marker,
         selectedRobot: props,
         showInfoWindow: true,
-
 
     });
 
