@@ -70,7 +70,7 @@ class MapContainer extends Component {
         this.getStateData(robotStateNumber, robotStateRendered, robotID);
         this.getCarrierData(cellStrength, availableCarrier, robotID);
         this.getCameraData(cameraNotWorkingArr, robotID);
-        this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
+        this.getProductData(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
         this.onMarkerClick(e, props, marker);
 
 
@@ -110,7 +110,6 @@ class MapContainer extends Component {
         this.setState({ availableCarrier, cellStrength });
     }
 
-
     getCameraData = (cameraNotWorkingArr, robotID) => {
         const { cameraDataWorking } = database.robots[robotID].diagnostics;
 
@@ -122,7 +121,7 @@ class MapContainer extends Component {
         this.setState({ cameraNotWorkingArr });
     }
 
-    getProductInfo = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
+    getProductData = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
 
         const { robots, orders } = database
 
@@ -165,14 +164,12 @@ class MapContainer extends Component {
     }
 
     onClose = () => {
-
         if (this.state.showInfoWindow) {
             this.setState({
                 showInfoWindow: false,
                 activeMarker: null
             });
         }
-
     };
 
     render() {
@@ -181,7 +178,9 @@ class MapContainer extends Component {
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
             robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
             orderedItems, totalPrice, robotState, currentRobotSelect, stateSelected,
-            cellStrength, availableCarrier } = this.state;
+            cellStrength, availableCarrier, activeRobot, showInfoWindow } = this.state;
+
+        const coords = { lat: 33.91708814912447, lng: -118.38704987546402 };
 
         return (
             <React.Fragment>
@@ -192,14 +191,7 @@ class MapContainer extends Component {
                         google={google}
                         zoom={10}
                         style={mapStyles}
-                        initialCenter={
-                            {
-                                // LA Region
-                                lat: 33.91708814912447,
-                                lng: -118.38704987546402
-
-                            }
-                        }
+                        initialCenter={coords}
                     >
 
 
@@ -221,8 +213,8 @@ class MapContainer extends Component {
 
                         <InfoWindow
                             max-width="400"
-                            marker={this.state.activeRobot}
-                            visible={this.state.showInfoWindow}
+                            marker={activeRobot}
+                            visible={showInfoWindow}
                             onClose={this.onClose}
                         >
                             <div>
