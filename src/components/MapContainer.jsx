@@ -93,15 +93,16 @@ class MapContainer extends Component {
 
     getCarrierData = (cellStrength, availableCarrier, robotID) => {
 
-        cellStrength = (database.robots[robotID].diagnostics.cellStrength * 100) + "% signal strength";
+        const { cellStrength: cellData, carrierAvail } = database.robots[robotID].diagnostics;
 
-        var availableCarrierObj = database.robots[robotID].diagnostics.carrierAvail;
-        var keysCarrier = Object.keys(database.robots[robotID].diagnostics.carrierAvail);
+        cellStrength = (cellData * 100) + "% signal strength";
+
+        var availableCarrierObj = carrierAvail;
+        var keysCarrier = Object.keys(carrierAvail);
 
         var availableCarrierArr = keysCarrier.filter(function (key) {
             return availableCarrierObj[key];
         });
-
 
         availableCarrierArr.length === 0 ? availableCarrier = "No carrier is available!" :
             availableCarrier = availableCarrierArr.toString().replace(",", ", ");
