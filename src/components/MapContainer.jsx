@@ -68,17 +68,20 @@ class MapContainer extends Component {
         batteryLife = (database.robots[robotID].diagnostics.battery * 100) + "% remaining";
         velocity = database.robots[robotID].diagnostics.velocity;
 
-        robotStateNumber = this.state.robotState[robotID];
-        robotStateRendered = this.robotStateStore[robotStateNumber];
-
+        this.getStateData(robotStateNumber, robotStateRendered, robotID);
         this.getCarrierData(cellStrength, availableCarrier, robotID);
         this.getCameraData(cameraNotWorkingArr, robotID);
         this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
-        this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity, robotStateNumber,
-            robotStateRendered);
+        this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity);
 
     }
 
+    getStateData = (robotStateNumber, robotStateRendered, robotID) => {
+        robotStateNumber = this.state.robotState[robotID];
+        robotStateRendered = this.robotStateStore[robotStateNumber];
+        this.setState({ robotStateNumber, robotStateRendered })
+
+    }
 
     getCarrierData = (cellStrength, availableCarrier, robotID) => {
 
@@ -132,22 +135,19 @@ class MapContainer extends Component {
         this.setState({ orderID: orderID, orderedItems, totalPrice, minutesSinceOrdered })
     }
 
-
     onMarkerClick = (props, marker, e, robotID, batteryLife, velocity,
-        robotStateNumber, robotStateRendered) => this.setState({
+    ) => this.setState({
 
-            activeRobot: marker,
-            selectedRobot: props,
-            showInfoWindow: true,
+        activeRobot: marker,
+        selectedRobot: props,
+        showInfoWindow: true,
 
-            robotID: robotID,
-            batteryLife: batteryLife,
-            velocity: velocity,
+        robotID: robotID,
+        batteryLife: batteryLife,
+        velocity: velocity,
 
-            robotStateNumber: robotStateNumber,
-            robotStateRendered: robotStateRendered,
 
-        });
+    });
 
 
     handleChangeRobot = (event) => {
