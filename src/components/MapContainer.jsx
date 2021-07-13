@@ -99,11 +99,8 @@ class MapContainer extends Component {
             return availableCarrierObj[key];
         });
 
-        if (availableCarrierArr.length === 0) {
-            availableCarrier = "No carrier is available!";
-        } else {
+        availableCarrierArr.length === 0 ? availableCarrier = "No carrier is available!" :
             availableCarrier = availableCarrierArr.toString().replace(",", ", ");
-        }
 
         this.setState({ availableCarrier, cellStrength });
     }
