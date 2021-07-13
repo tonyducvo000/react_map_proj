@@ -4,7 +4,7 @@ import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
 import StateDisplay from './stateDisplay'
 import convertTime from './helper/convertTime'
-import getCameraData from './helper/getCameraData'
+import getBrokenCameraData from './helper/getCameraData'
 import ControlPanel from './controlPanel'
 
 //import Markers from './markers'
@@ -67,7 +67,6 @@ class MapContainer extends Component {
         robotID = e.title;
         batteryLife = (database.robots[robotID].diagnostics.battery * 100) + "% remaining";
         velocity = database.robots[robotID].diagnostics.velocity;
-        cameraNotWorkingArr = getCameraData(database.robots[robotID].diagnostics.cameraDataWorking);
         cellStrength = (database.robots[robotID].diagnostics.cellStrength * 100) + "% signal strength";
         ////
 
@@ -85,10 +84,20 @@ class MapContainer extends Component {
             availableCarrier = availableCarrierArr.toString().replace(",", ", ");
         }
 
-
         robotStateNumber = this.state.robotState[robotID];
         robotStateRendered = this.robotStateStore[robotStateNumber];
 
+        this.getCameraData(cameraNotWorkingArr, robotID);
+        this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
+        this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity,
+            cellStrength, availableCarrier, robotStateNumber,
+            robotStateRendered, orderedItems, minutesSinceOrdered, totalPrice);
+
+    }
+
+
+    getCameraData = (cameraNotWorkingArr, robotID) => {
+        cameraNotWorkingArr = getBrokenCameraData(database.robots[robotID].diagnostics.cameraDataWorking);
 
         if (cameraNotWorkingArr.length === 0) {
             cameraNotWorkingArr = "All cameras are functioning.";
@@ -96,12 +105,7 @@ class MapContainer extends Component {
             cameraNotWorkingArr = "Camera(s) " + cameraNotWorkingArr.toString().replace(",", ", ") + " are broken!"
         }
 
-
-        this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
-        this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity,
-            cameraNotWorkingArr, cellStrength, availableCarrier, robotStateNumber,
-            robotStateRendered, orderedItems, minutesSinceOrdered, totalPrice);
-
+        this.setState({ cameraNotWorkingArr });
     }
 
     getProductInfo = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
@@ -129,7 +133,7 @@ class MapContainer extends Component {
     }
 
     onMarkerClick = (props, marker, e, robotID, batteryLife, velocity,
-        cameraNotWorkingArr, cellStrength, availableCarrier, robotStateNumber, robotStateRendered) => this.setState({
+        cellStrength, availableCarrier, robotStateNumber, robotStateRendered) => this.setState({
 
             activeRobot: marker,
             selectedRobot: props,
@@ -138,7 +142,6 @@ class MapContainer extends Component {
             robotID: robotID,
             batteryLife: batteryLife,
             velocity: velocity,
-            cameraNotWorkingArr: cameraNotWorkingArr,
 
             cellStrength: cellStrength,
             availableCarrier: availableCarrier,

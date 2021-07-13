@@ -1,4 +1,4 @@
-const getCameraData = (cameraData) => {
+const getBrokenCameraData = (cameraData) => {
 
     var indexes = [], i = -1;
     while ((i = cameraData.indexOf(false, i + 1)) !== -1) {
@@ -8,4 +8,4 @@ const getCameraData = (cameraData) => {
     return indexes;
 }
 
-export default getCameraData;
+export default getBrokenCameraData;
