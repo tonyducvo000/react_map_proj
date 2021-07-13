@@ -75,7 +75,7 @@ class MapContainer extends Component {
         this.getCameraData(cameraNotWorkingArr, robotID);
         this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
         this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity, robotStateNumber,
-            robotStateRendered, orderedItems, minutesSinceOrdered, totalPrice);
+            robotStateRendered);
 
     }
 
