@@ -112,11 +112,8 @@ class MapContainer extends Component {
     getCameraData = (cameraNotWorkingArr, robotID) => {
         cameraNotWorkingArr = getBrokenCameraData(database.robots[robotID].diagnostics.cameraDataWorking);
 
-        if (cameraNotWorkingArr.length === 0) {
-            cameraNotWorkingArr = "All cameras are functioning.";
-        } else {
-            cameraNotWorkingArr = "Camera(s) " + cameraNotWorkingArr.toString().replace(",", ", ") + " are broken!"
-        }
+        cameraNotWorkingArr.length === 0 ? cameraNotWorkingArr = "All cameras are functioning." :
+            cameraNotWorkingArr = "Camera #" + cameraNotWorkingArr.toString().replace(",", ", #") + " is broken!";
 
         this.setState({ cameraNotWorkingArr });
     }
