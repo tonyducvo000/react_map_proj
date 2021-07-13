@@ -4,7 +4,9 @@ import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
 import StateDisplay from './stateDisplay'
 import convertTime from './helper/convertTime'
+import getCameraData from './helper/getCameraData'
 import ControlPanel from './controlPanel'
+
 //import Markers from './markers'
 
 import database from './database_cocos.json';
@@ -57,7 +59,6 @@ class MapContainer extends Component {
 
     }
 
-
     parseAndHandleClick = (e, props, marker, robotID,
         batteryLife, velocity, cameraNotWorkingArr,
         cellStrength, availableCarrier, robotStateNumber, robotStateRendered,
@@ -66,7 +67,7 @@ class MapContainer extends Component {
         robotID = e.title;
         batteryLife = (database.robots[robotID].diagnostics.battery * 100) + "% remaining";
         velocity = database.robots[robotID].diagnostics.velocity;
-        cameraNotWorkingArr = this.getCameraData(database.robots[robotID].diagnostics.cameraDataWorking);
+        cameraNotWorkingArr = getCameraData(database.robots[robotID].diagnostics.cameraDataWorking);
         cellStrength = (database.robots[robotID].diagnostics.cellStrength * 100) + "% signal strength";
         ////
 
@@ -89,7 +90,7 @@ class MapContainer extends Component {
         robotStateRendered = this.robotStateStore[robotStateNumber];
 
 
-        if (cameraNotWorkingArr === "") {
+        if (cameraNotWorkingArr.length === 0) {
             cameraNotWorkingArr = "All cameras are functioning.";
         } else {
             cameraNotWorkingArr = "Camera(s) " + cameraNotWorkingArr.toString().replace(",", ", ") + " are broken!"
@@ -125,14 +126,6 @@ class MapContainer extends Component {
     getCarrierData = () => {
 
 
-    }
-
-    getCameraData = (cameraData) => {
-        var indexes = [], i = -1;
-        while ((i = cameraData.indexOf(false, i + 1)) !== -1) {
-            indexes.push(i);
-        }
-        return indexes;
     }
 
     onMarkerClick = (props, marker, e, robotID, batteryLife, velocity,
