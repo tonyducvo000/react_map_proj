@@ -89,20 +89,6 @@ class MapContainer extends Component {
         robotStateRendered = this.robotStateStore[robotStateNumber];
 
 
-        if (database.robots[robotID].assignedOrderId !== "") {
-            orderID = database.robots[robotID].assignedOrderId;
-            orderedItems = database.orders[orderID].items.toString().replace(",", ", ");
-            totalPrice = "$" + database.orders[orderID].totalPrice;
-            minutesSinceOrdered = convertTime(database.orders[orderID].minutesSinceOrderPlaced)
-
-        } else {
-            orderID = "Available";
-            orderedItems = "N/A";
-            totalPrice = "N/A";
-            minutesSinceOrdered = "N/A";
-        }
-
-
         if (cameraNotWorkingArr === "") {
             cameraNotWorkingArr = "All cameras are functioning.";
         } else {
@@ -110,10 +96,30 @@ class MapContainer extends Component {
         }
 
 
+        this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
         this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity,
             cameraNotWorkingArr, cellStrength, availableCarrier, robotStateNumber,
-            robotStateRendered, orderID, orderedItems, minutesSinceOrdered, totalPrice);
+            robotStateRendered, orderedItems, minutesSinceOrdered, totalPrice);
 
+    }
+
+    getProductInfo = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
+
+        const { robots, orders } = database
+
+        if (robots[robotID].assignedOrderId !== "") {
+            orderID = robots[robotID].assignedOrderId;
+            orderedItems = orders[orderID].items.toString().replace(",", ", ");
+            totalPrice = "$" + orders[orderID].totalPrice;
+            minutesSinceOrdered = convertTime(database.orders[orderID].minutesSinceOrderPlaced);
+
+        } else {
+            orderID = "Available";
+            orderedItems = "N/A";
+            totalPrice = "N/A";
+            minutesSinceOrdered = "N/A";
+        }
+        this.setState({ orderID: orderID, orderedItems, totalPrice, minutesSinceOrdered })
     }
 
     getCarrierData = () => {
@@ -130,8 +136,7 @@ class MapContainer extends Component {
     }
 
     onMarkerClick = (props, marker, e, robotID, batteryLife, velocity,
-        cameraNotWorkingArr, cellStrength, availableCarrier, robotStateNumber, robotStateRendered, orderID,
-        orderedItems, minutesSinceOrdered, totalPrice) => this.setState({
+        cameraNotWorkingArr, cellStrength, availableCarrier, robotStateNumber, robotStateRendered) => this.setState({
 
             activeRobot: marker,
             selectedRobot: props,
@@ -147,11 +152,6 @@ class MapContainer extends Component {
             robotStateNumber: robotStateNumber,
             robotStateRendered: robotStateRendered,
 
-
-            orderID: orderID,
-            orderedItems: orderedItems,
-            minutesSinceOrdered: minutesSinceOrdered,
-            totalPrice: totalPrice
         });
 
 
