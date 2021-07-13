@@ -67,8 +67,22 @@ class MapContainer extends Component {
         robotID = e.title;
         batteryLife = (database.robots[robotID].diagnostics.battery * 100) + "% remaining";
         velocity = database.robots[robotID].diagnostics.velocity;
+
+        robotStateNumber = this.state.robotState[robotID];
+        robotStateRendered = this.robotStateStore[robotStateNumber];
+
+        this.getCarrierData(cellStrength, availableCarrier, robotID);
+        this.getCameraData(cameraNotWorkingArr, robotID);
+        this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
+        this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity, robotStateNumber,
+            robotStateRendered, orderedItems, minutesSinceOrdered, totalPrice);
+
+    }
+
+
+    getCarrierData = (cellStrength, availableCarrier, robotID) => {
+
         cellStrength = (database.robots[robotID].diagnostics.cellStrength * 100) + "% signal strength";
-        ////
 
         var availableCarrierObj = database.robots[robotID].diagnostics.carrierAvail;
         var keysCarrier = Object.keys(database.robots[robotID].diagnostics.carrierAvail);
@@ -77,22 +91,13 @@ class MapContainer extends Component {
             return availableCarrierObj[key];
         });
 
-        //
         if (availableCarrierArr.length === 0) {
             availableCarrier = "No carrier is available!";
         } else {
             availableCarrier = availableCarrierArr.toString().replace(",", ", ");
         }
 
-        robotStateNumber = this.state.robotState[robotID];
-        robotStateRendered = this.robotStateStore[robotStateNumber];
-
-        this.getCameraData(cameraNotWorkingArr, robotID);
-        this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
-        this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity,
-            cellStrength, availableCarrier, robotStateNumber,
-            robotStateRendered, orderedItems, minutesSinceOrdered, totalPrice);
-
+        this.setState({ availableCarrier, cellStrength });
     }
 
 
@@ -127,13 +132,9 @@ class MapContainer extends Component {
         this.setState({ orderID: orderID, orderedItems, totalPrice, minutesSinceOrdered })
     }
 
-    getCarrierData = () => {
-
-
-    }
 
     onMarkerClick = (props, marker, e, robotID, batteryLife, velocity,
-        cellStrength, availableCarrier, robotStateNumber, robotStateRendered) => this.setState({
+        robotStateNumber, robotStateRendered) => this.setState({
 
             activeRobot: marker,
             selectedRobot: props,
@@ -143,8 +144,6 @@ class MapContainer extends Component {
             batteryLife: batteryLife,
             velocity: velocity,
 
-            cellStrength: cellStrength,
-            availableCarrier: availableCarrier,
             robotStateNumber: robotStateNumber,
             robotStateRendered: robotStateRendered,
 
