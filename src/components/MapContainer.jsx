@@ -65,15 +65,20 @@ class MapContainer extends Component {
         orderID, orderedItems, minutesSinceOrdered, totalPrice) => {
 
         robotID = e.title;
-        batteryLife = (database.robots[robotID].diagnostics.battery * 100) + "% remaining";
-        velocity = database.robots[robotID].diagnostics.velocity;
 
+        this.getGeneralData(batteryLife, velocity, robotID);
         this.getStateData(robotStateNumber, robotStateRendered, robotID);
         this.getCarrierData(cellStrength, availableCarrier, robotID);
         this.getCameraData(cameraNotWorkingArr, robotID);
         this.getProductInfo(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
-        this.onMarkerClick(e, props, marker, robotID, batteryLife, velocity);
+        this.onMarkerClick(e, props, marker, robotID);
 
+    }
+
+    getGeneralData = (batteryLife, velocity, robotID) => {
+        batteryLife = (database.robots[robotID].diagnostics.battery * 100) + "% remaining";
+        velocity = database.robots[robotID].diagnostics.velocity;
+        this.setState({ batteryLife, velocity })
     }
 
     getStateData = (robotStateNumber, robotStateRendered, robotID) => {
@@ -135,20 +140,14 @@ class MapContainer extends Component {
         this.setState({ orderID: orderID, orderedItems, totalPrice, minutesSinceOrdered })
     }
 
-    onMarkerClick = (props, marker, e, robotID, batteryLife, velocity,
-    ) => this.setState({
+    onMarkerClick = (props, marker, e, robotID) => this.setState({
 
         activeRobot: marker,
         selectedRobot: props,
         showInfoWindow: true,
 
         robotID: robotID,
-        batteryLife: batteryLife,
-        velocity: velocity,
-
-
     });
-
 
     handleChangeRobot = (event) => {
         const { robotState } = this.state;
