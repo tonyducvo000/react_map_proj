@@ -117,10 +117,11 @@ class MapContainer extends Component {
     }
 
     getProductData = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
-        const { robots, orders } = database
+        const { orders } = database
+        const { assignedOrderId } = database.robots[robotID];
 
-        if (robots[robotID].assignedOrderId !== "") {
-            orderID = robots[robotID].assignedOrderId;
+        if (assignedOrderId !== "") {
+            orderID = assignedOrderId;
             orderedItems = orders[orderID].items.toString().replace(",", ", ");
             totalPrice = "$" + orders[orderID].totalPrice;
             minutesSinceOrdered = convertTime(orders[orderID].minutesSinceOrderPlaced);
