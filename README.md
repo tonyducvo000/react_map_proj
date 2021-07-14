@@ -10,3 +10,5 @@ At the bottom, the robot's state is controlled by a drop down menu.  Upon choosi
 menu will load the selected robot's current state.  If the user updates the robot's state, the display panel will reflect this
 change.
 
+Link for demo:
+https://react-map-project-bcd6a.web.app/
