@@ -6,15 +6,13 @@ import StateDisplay from './stateDisplay'
 import convertTime from './helper/convertTime'
 import getBrokenCameraData from './helper/getCameraData'
 import ControlPanel from './controlPanel'
-
-//import Markers from './markers'
+import Markers from './markers';
 
 import database from './database_cocos.json';
 import GOOGLE_MAP_API_KEY from '../key/my_key'
 import './MapContainer.scss';
-import Markers from './markers';
 
-//gets list of robots
+//gets key and values of robots
 const base_keys_robots = Object.keys(database.robots);
 const base_values_robots = Object.values(database.robots);
 
@@ -73,7 +71,6 @@ class MapContainer extends Component {
         this.getProductData(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
         this.onMarkerClick(e, props, marker);
 
-
     }
 
     getGeneralData = (batteryLife, velocity, robotID) => {
@@ -88,11 +85,9 @@ class MapContainer extends Component {
         robotStateNumber = this.state.robotState[robotID];
         robotStateRendered = this.robotStateStore[robotStateNumber];
         this.setState({ robotStateNumber, robotStateRendered })
-
     }
 
     getCarrierData = (cellStrength, availableCarrier, robotID) => {
-
         const { cellStrength: cellData, carrierAvail } = database.robots[robotID].diagnostics;
 
         cellStrength = (cellData * 100) + "% signal strength";
@@ -122,7 +117,6 @@ class MapContainer extends Component {
     }
 
     getProductData = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
-
         const { robots, orders } = database
 
         if (robots[robotID].assignedOrderId !== "") {
@@ -137,30 +131,27 @@ class MapContainer extends Component {
             totalPrice = "N/A";
             minutesSinceOrdered = "N/A";
         }
-        this.setState({ orderID: orderID, orderedItems, totalPrice, minutesSinceOrdered })
+        this.setState({ orderID, orderedItems, totalPrice, minutesSinceOrdered })
     }
 
     onMarkerClick = (props, marker, e) => this.setState({
-
         activeRobot: marker,
         selectedRobot: props,
         showInfoWindow: true,
-
     });
 
     handleChangeRobot = (event) => {
         const { robotState } = this.state;
-        this.setState({ currentRobotSelect: event.target.value, stateSelected: robotState[event.target.value] });
+        const { value } = event.target;
+        this.setState({ currentRobotSelect: value, stateSelected: robotState[value] });
     }
 
     handleStateChange = (event) => {
-
         const { currentRobotSelect } = this.state;
         //clone the object then update the key's value of robotState
         const robotStateClone = { ...this.state.robotState };
         robotStateClone[currentRobotSelect] = event.target.value;
         this.setState({ robotState: robotStateClone, stateSelected: event.target.value });
-
     }
 
     onClose = () => {
