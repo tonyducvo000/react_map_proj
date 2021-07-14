@@ -59,18 +59,17 @@ class MapContainer extends Component {
 
     parseAndHandleClick = (e, props, marker, robotID,
         cameraNotWorkingArr,
-        cellStrength, availableCarrier, robotStateNumber, robotStateRendered,
+
         orderID, orderedItems, minutesSinceOrdered, subTotal, tax, totalPrice) => {
 
         robotID = e.title;
 
         this.getGeneralData(robotID);
-        this.getStateData(robotStateNumber, robotStateRendered, robotID);
-        this.getCarrierData(cellStrength, availableCarrier, robotID);
+        this.getStateData(robotID);
+        this.getCarrierData(robotID);
         this.getCameraData(cameraNotWorkingArr, robotID);
         this.getProductData(orderID, orderedItems, subTotal, tax, totalPrice, minutesSinceOrdered, robotID);
         this.onMarkerClick(e, props, marker);
-
     }
 
     getGeneralData = (robotID) => {
@@ -81,16 +80,16 @@ class MapContainer extends Component {
         this.setState({ batteryLife, velocity, robotID })
     }
 
-    getStateData = (robotStateNumber, robotStateRendered, robotID) => {
-        robotStateNumber = this.state.robotState[robotID];
-        robotStateRendered = this.robotStateStore[robotStateNumber];
+    getStateData = (robotID) => {
+        var robotStateNumber = this.state.robotState[robotID];
+        var robotStateRendered = this.robotStateStore[robotStateNumber];
         this.setState({ robotStateNumber, robotStateRendered })
     }
 
-    getCarrierData = (cellStrength, availableCarrier, robotID) => {
-        const { cellStrength: cellData, carrierAvail } = database.robots[robotID].diagnostics;
+    getCarrierData = (robotID) => {
+        const { cellStrength, carrierAvail } = database.robots[robotID].diagnostics;
 
-        cellStrength = (cellData * 100) + "% signal strength";
+        var cellData = (cellStrength * 100) + "% signal strength";
 
         var availableCarrierObj = carrierAvail;
         var keysCarrier = Object.keys(carrierAvail);
@@ -99,10 +98,10 @@ class MapContainer extends Component {
             return availableCarrierObj[key];
         });
 
-        availableCarrierArr.length === 0 ? availableCarrier = "No carrier is available!" :
+        var availableCarrier = availableCarrierArr.length === 0 ? "No carrier is available!" :
             availableCarrier = availableCarrierArr.toString().replace(",", ", ");
 
-        this.setState({ availableCarrier, cellStrength });
+        this.setState({ availableCarrier, cellStrength: cellData });
     }
 
     getCameraData = (cameraNotWorkingArr, robotID) => {
