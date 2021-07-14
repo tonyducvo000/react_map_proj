@@ -58,13 +58,13 @@ class MapContainer extends Component {
     }
 
     parseAndHandleClick = (e, props, marker, robotID,
-        batteryLife, velocity, cameraNotWorkingArr,
+        cameraNotWorkingArr,
         cellStrength, availableCarrier, robotStateNumber, robotStateRendered,
         orderID, orderedItems, minutesSinceOrdered, subTotal, tax, totalPrice) => {
 
         robotID = e.title;
 
-        this.getGeneralData(batteryLife, velocity, robotID);
+        this.getGeneralData(robotID);
         this.getStateData(robotStateNumber, robotStateRendered, robotID);
         this.getCarrierData(cellStrength, availableCarrier, robotID);
         this.getCameraData(cameraNotWorkingArr, robotID);
@@ -73,11 +73,11 @@ class MapContainer extends Component {
 
     }
 
-    getGeneralData = (batteryLife, velocity, robotID) => {
+    getGeneralData = (robotID) => {
         const { battery, velocity: robotVelocity } = database.robots[robotID].diagnostics;
 
-        batteryLife = (battery * 100) + "% remaining";
-        velocity = robotVelocity + " miles per hour";
+        var batteryLife = (battery * 100) + "% remaining";
+        var velocity = robotVelocity + " miles per hour";
         this.setState({ batteryLife, velocity, robotID })
     }
 
