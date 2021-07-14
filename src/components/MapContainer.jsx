@@ -58,7 +58,7 @@ class MapContainer extends Component {
     }
 
     parseAndHandleClick = (e, props, marker, robotID,
-        cameraNotWorkingArr,
+
 
         orderID, orderedItems, minutesSinceOrdered, subTotal, tax, totalPrice) => {
 
@@ -67,8 +67,8 @@ class MapContainer extends Component {
         this.getGeneralData(robotID);
         this.getStateData(robotID);
         this.getCarrierData(robotID);
-        this.getCameraData(cameraNotWorkingArr, robotID);
-        this.getProductData(orderID, orderedItems, subTotal, tax, totalPrice, minutesSinceOrdered, robotID);
+        this.getCameraData(robotID);
+        this.getProductData(robotID);
         this.onMarkerClick(e, props, marker);
     }
 
@@ -99,15 +99,15 @@ class MapContainer extends Component {
         });
 
         var availableCarrier = availableCarrierArr.length === 0 ? "No carrier is available!" :
-            availableCarrier = availableCarrierArr.toString().replace(",", ", ");
+            availableCarrierArr.toString().replace(",", ", ");
 
         this.setState({ availableCarrier, cellStrength: cellData });
     }
 
-    getCameraData = (cameraNotWorkingArr, robotID) => {
+    getCameraData = (robotID) => {
         const { cameraDataWorking } = database.robots[robotID].diagnostics;
 
-        cameraNotWorkingArr = getBrokenCameraData(cameraDataWorking);
+        var cameraNotWorkingArr = getBrokenCameraData(cameraDataWorking);
 
         cameraNotWorkingArr.length === 0 ? cameraNotWorkingArr = "All cameras are functioning." :
             cameraNotWorkingArr = "Camera #" + cameraNotWorkingArr.toString().replace(",", ", #") + " is broken!";
@@ -115,17 +115,17 @@ class MapContainer extends Component {
         this.setState({ cameraNotWorkingArr });
     }
 
-    getProductData = (orderID, orderedItems, subTotal, tax, totalPrice, minutesSinceOrdered, robotID) => {
+    getProductData = (robotID) => {
         const { orders } = database
         const { assignedOrderId } = database.robots[robotID];
 
         if (assignedOrderId !== "") {
-            orderID = assignedOrderId;
-            orderedItems = orders[orderID].items.toString().replace(",", ", ");
-            subTotal = "$" + orders[orderID].subtotalPrice;
-            tax = "$" + (orders[orderID].totalPrice - orders[orderID].subtotalPrice).toFixed(2);
-            totalPrice = "$" + orders[orderID].totalPrice;
-            minutesSinceOrdered = convertTime(orders[orderID].minutesSinceOrderPlaced);
+            var orderID = assignedOrderId;
+            var orderedItems = orders[orderID].items.toString().replace(",", ", ");
+            var subTotal = "$" + orders[orderID].subtotalPrice;
+            var tax = "$" + (orders[orderID].totalPrice - orders[orderID].subtotalPrice).toFixed(2);
+            var totalPrice = "$" + orders[orderID].totalPrice;
+            var minutesSinceOrdered = convertTime(orders[orderID].minutesSinceOrderPlaced);
 
         } else {
             orderID = "Available";
