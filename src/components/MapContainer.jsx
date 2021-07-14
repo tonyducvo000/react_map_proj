@@ -123,7 +123,7 @@ class MapContainer extends Component {
             orderID = robots[robotID].assignedOrderId;
             orderedItems = orders[orderID].items.toString().replace(",", ", ");
             totalPrice = "$" + orders[orderID].totalPrice;
-            minutesSinceOrdered = convertTime(database.orders[orderID].minutesSinceOrderPlaced);
+            minutesSinceOrdered = convertTime(orders[orderID].minutesSinceOrderPlaced);
 
         } else {
             orderID = "Available";
@@ -148,10 +148,11 @@ class MapContainer extends Component {
 
     handleStateChange = (event) => {
         const { currentRobotSelect } = this.state;
+        const { value } = event.target;
         //clone the object then update the key's value of robotState
         const robotStateClone = { ...this.state.robotState };
-        robotStateClone[currentRobotSelect] = event.target.value;
-        this.setState({ robotState: robotStateClone, stateSelected: event.target.value });
+        robotStateClone[currentRobotSelect] = value;
+        this.setState({ robotState: robotStateClone, stateSelected: value });
     }
 
     onClose = () => {
@@ -209,28 +210,25 @@ class MapContainer extends Component {
                                     robotStateRendered={robotStateRendered}
                                     cellStrength={cellStrength}
                                     availableCarrier={availableCarrier}
-                                >
-                                </RobotDataDisplay>
+                                />
 
                                 <ProductInfoDisplay
                                     orderID={orderID}
                                     minutesSinceOrdered={minutesSinceOrdered}
                                     orderedItems={orderedItems}
                                     totalPrice={totalPrice}
-                                >
-                                </ProductInfoDisplay>
+                                />
                             </div>
                         </InfoWindow>
                     </Map>
                 </div>
 
+
                 <StateDisplay
                     robotState={robotState}
                     robotStateStore={this.robotStateStore}
                     base_keys_robots={base_keys_robots}
-                >
-
-                </StateDisplay>
+                />
 
                 <ControlPanel
                     currentRobotSelect={currentRobotSelect}
@@ -240,8 +238,7 @@ class MapContainer extends Component {
                     base_keys_robots={base_keys_robots}
                     robotStateStore={this.robotStateStore}
 
-                >
-                </ControlPanel>
+                />
 
             </React.Fragment >
 
