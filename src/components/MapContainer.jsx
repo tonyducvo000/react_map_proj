@@ -63,7 +63,6 @@ class MapContainer extends Component {
         orderID, orderedItems, minutesSinceOrdered, totalPrice) => {
 
         robotID = e.title;
-        orderID = database.robots[robotID].assignedOrderId;
 
         this.getGeneralData(batteryLife, velocity, robotID);
         this.getStateData(robotStateNumber, robotStateRendered, robotID);
@@ -118,14 +117,14 @@ class MapContainer extends Component {
     }
 
     getProductData = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
-        const { items, totalPrice: orderPrice, minutesSinceOrderPlaced } = database.orders[orderID]
+        const { orders } = database
         const { assignedOrderId } = database.robots[robotID];
 
         if (assignedOrderId !== "") {
             orderID = assignedOrderId;
-            orderedItems = items.toString().replace(",", ", ");
-            totalPrice = "$" + orderPrice;
-            minutesSinceOrdered = convertTime(minutesSinceOrderPlaced);
+            orderedItems = orders[orderID].items.toString().replace(",", ", ");
+            totalPrice = "$" + orders[orderID].totalPrice;
+            minutesSinceOrdered = convertTime(orders[orderID].minutesSinceOrderPlaced);
 
         } else {
             orderID = "Available";
