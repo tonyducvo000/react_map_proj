@@ -1,36 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Marker } from 'google-maps-react';
 const R = require('ramda');
 
 
-class Markers extends Component {
+const Markers = (base_keys_robots, base_values_robots, parseAndHandleClick) => {
 
-    render() {
-        const { base_keys_robots, base_values_robots } = this.props
+    return (
 
-        return (
+        R.zip(base_keys_robots, base_values_robots).map((data) => {
 
-            <React.Fragment>
+            return (
+                <Marker label={data[0]} title={data[0]} onClick={parseAndHandleClick}
+                    position={{ lat: data[1].location.latitude, lng: data[1].location.longitude }} />
+            )
+        })
 
-                {
+    );
 
-                    R.zip(base_keys_robots, base_values_robots).map((data) => {
-
-                        return (
-                            <Marker label={data[0]} title={data[0]} onClick={this.parseAndHandleClick}
-                                position={{ lat: data[1].location.latitude, lng: data[1].location.longitude }} />
-                        )
-                    })
-
-                }
-
-
-
-            </React.Fragment>
-
-
-        );
-    }
 }
 
 export default Markers;

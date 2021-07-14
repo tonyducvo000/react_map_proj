@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import { Map, GoogleApiWrapper, InfoWindow } from 'google-maps-react';
 import RobotDataDisplay from './robotDataDisplay';
 import ProductInfoDisplay from './productInfoDisplay';
 import StateDisplay from './stateDisplay'
@@ -12,7 +12,7 @@ import ControlPanel from './controlPanel'
 import database from './database_cocos.json';
 import GOOGLE_MAP_API_KEY from '../key/my_key'
 import './MapContainer.scss';
-const R = require('ramda');
+import Markers from './markers';
 
 //gets list of robots
 const base_keys_robots = Object.keys(database.robots);
@@ -193,23 +193,14 @@ class MapContainer extends Component {
                         style={mapStyles}
                         initialCenter={coords}
                     >
+                        {/* Using <Markers> will not generate markers, 
+                        since generated <Marker> will be children of <Markers>.  
+                        <Marker> needs to a direct child of <Map> for it to be rendered.  
+                        Solution: Use Markers as a function and pass resources as parameter. */}
 
-
-                        {/* <Markers
-                            base_keys_robots={base_keys_robots}
-                            base_values_robots={base_values_robots}
-                        >
-                        </Markers> */}
-
-                        {
-                            R.zip(base_keys_robots, base_values_robots).map((data) => {
-
-                                return (
-                                    <Marker key={data[0]} label={data[0]} title={data[0]} onClick={this.parseAndHandleClick}
-                                        position={{ lat: data[1].location.latitude, lng: data[1].location.longitude }} />
-                                )
-                            })
-                        }
+                        {Markers(base_keys_robots,
+                            base_values_robots,
+                            this.parseAndHandleClick)}
 
                         <InfoWindow
                             max-width="400"
