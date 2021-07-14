@@ -60,7 +60,7 @@ class MapContainer extends Component {
     parseAndHandleClick = (e, props, marker, robotID,
         batteryLife, velocity, cameraNotWorkingArr,
         cellStrength, availableCarrier, robotStateNumber, robotStateRendered,
-        orderID, orderedItems, minutesSinceOrdered, totalPrice) => {
+        orderID, orderedItems, minutesSinceOrdered, subTotal, tax, totalPrice) => {
 
         robotID = e.title;
 
@@ -68,7 +68,7 @@ class MapContainer extends Component {
         this.getStateData(robotStateNumber, robotStateRendered, robotID);
         this.getCarrierData(cellStrength, availableCarrier, robotID);
         this.getCameraData(cameraNotWorkingArr, robotID);
-        this.getProductData(orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID);
+        this.getProductData(orderID, orderedItems, subTotal, tax, totalPrice, minutesSinceOrdered, robotID);
         this.onMarkerClick(e, props, marker);
 
     }
@@ -116,23 +116,27 @@ class MapContainer extends Component {
         this.setState({ cameraNotWorkingArr });
     }
 
-    getProductData = (orderID, orderedItems, totalPrice, minutesSinceOrdered, robotID) => {
+    getProductData = (orderID, orderedItems, subTotal, tax, totalPrice, minutesSinceOrdered, robotID) => {
         const { orders } = database
         const { assignedOrderId } = database.robots[robotID];
 
         if (assignedOrderId !== "") {
             orderID = assignedOrderId;
             orderedItems = orders[orderID].items.toString().replace(",", ", ");
+            subTotal = "$" + orders[orderID].subtotalPrice;
+            tax = "$" + (orders[orderID].totalPrice - orders[orderID].subtotalPrice).toFixed(2);
             totalPrice = "$" + orders[orderID].totalPrice;
             minutesSinceOrdered = convertTime(orders[orderID].minutesSinceOrderPlaced);
 
         } else {
             orderID = "Available";
             orderedItems = "N/A";
+            subTotal = "N/A";
+            tax = "N/A";
             totalPrice = "N/A";
             minutesSinceOrdered = "N/A";
         }
-        this.setState({ orderID, orderedItems, totalPrice, minutesSinceOrdered })
+        this.setState({ orderID, orderedItems, subTotal, tax, totalPrice, minutesSinceOrdered })
     }
 
     onMarkerClick = (props, marker, e) => this.setState({
@@ -170,7 +174,7 @@ class MapContainer extends Component {
 
         const { robotID, velocity, batteryLife, cameraNotWorkingArr,
             robotStateNumber, robotStateRendered, orderID, minutesSinceOrdered,
-            orderedItems, totalPrice, robotState, currentRobotSelect, stateSelected,
+            orderedItems, subTotal, tax, totalPrice, robotState, currentRobotSelect, stateSelected,
             cellStrength, availableCarrier, activeRobot, showInfoWindow } = this.state;
 
         const coords = { lat: 33.91708814912447, lng: -118.38704987546402 };
@@ -217,6 +221,8 @@ class MapContainer extends Component {
                                     orderID={orderID}
                                     minutesSinceOrdered={minutesSinceOrdered}
                                     orderedItems={orderedItems}
+                                    subTotal={subTotal}
+                                    tax={tax}
                                     totalPrice={totalPrice}
                                 />
                             </div>
