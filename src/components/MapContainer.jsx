@@ -57,11 +57,9 @@ class MapContainer extends Component {
 
     }
 
-    parseAndHandleClick = (e, props, marker, robotID,
+    parseAndHandleClick = (e, props, marker, robotID) => {
 
-
-        orderID, orderedItems, minutesSinceOrdered, subTotal, tax, totalPrice) => {
-
+        //all data fetching should be based on marker click.
         robotID = e.title;
 
         this.getGeneralData(robotID);
@@ -87,9 +85,9 @@ class MapContainer extends Component {
     }
 
     getCarrierData = (robotID) => {
-        const { cellStrength, carrierAvail } = database.robots[robotID].diagnostics;
+        const { cellStrength: cellData, carrierAvail } = database.robots[robotID].diagnostics;
 
-        var cellData = (cellStrength * 100) + "% signal strength";
+        var cellStrength = (cellData * 100) + "% signal strength";
 
         var availableCarrierObj = carrierAvail;
         var keysCarrier = Object.keys(carrierAvail);
@@ -101,7 +99,7 @@ class MapContainer extends Component {
         var availableCarrier = availableCarrierArr.length === 0 ? "No carrier is available!" :
             availableCarrierArr.toString().replace(",", ", ");
 
-        this.setState({ availableCarrier, cellStrength: cellData });
+        this.setState({ availableCarrier, cellStrength });
     }
 
     getCameraData = (robotID) => {
